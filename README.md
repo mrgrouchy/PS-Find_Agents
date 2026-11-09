@@ -66,21 +66,3 @@ target the Global cloud and the same tenant. API authorization is enforced by Gr
 
 The script uses the documented v1.0 endpoints. No name heuristic is treated as proof
 that an application is an agent.
-
-## Development and GitHub
-
-GitHub Actions checks PowerShell syntax on pushes and pull requests. This does not
-authenticate to a tenant or validate live Graph responses.
-
-Keep tenant exports and credentials out of commits. Before uploading, review
-`git status --short` and `git diff --cached`. Local configuration is deliberately
-excluded; new users should copy `config.example.json` and supply their own tenant.
-
-To publish to an empty GitHub repository after reviewing the files:
-
-```sh
-git add .
-git commit -m "Add Entra agent inventory script"
-git remote add origin https://github.com/YOUR-ACCOUNT/PS-Find_Agents.git
-git push -u origin main
-```
