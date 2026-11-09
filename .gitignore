@@ -1,0 +1,18 @@
+# Local tenant configuration and credentials
+config.local.json
+.env
+.env.*
+*.pfx
+*.p12
+*.key
+
+# Generated tenant inventory reports
+*.csv
+reports/
+*.log
+
+# Local OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

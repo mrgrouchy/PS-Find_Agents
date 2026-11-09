@@ -1,0 +1,30 @@
+name: PowerShell syntax
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse PowerShell scripts
+        shell: pwsh
+        run: |
+          $failed = $false
+          Get-ChildItem -Recurse -Filter *.ps1 | ForEach-Object {
+              $tokens = $null
+              $parseErrors = $null
+              $null = [System.Management.Automation.Language.Parser]::ParseFile(
+                  $_.FullName, [ref]$tokens, [ref]$parseErrors)
+              foreach ($parseError in $parseErrors) {
+                  Write-Host "$($_.FullName): $parseError"
+                  $failed = $true
+              }
+          }
+          if ($failed) { exit 1 }
